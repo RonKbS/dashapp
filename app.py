@@ -1,6 +1,5 @@
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc, html
 
 
 # export FLASK_ENV=development
@@ -25,4 +24,4 @@ app.layout = html.Div(
 )
 
 if __name__ == '__main__':
-    app.run_server(debug=True, host='0.0.0.0')
+    app.run_server(debug=True, host='0.0.0.0', port="8888")
