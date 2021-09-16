@@ -14,6 +14,7 @@ with open("tiles_dates.json") as f:
     tile_dates_dict = json.loads(f.read())
 
 date_tile_kv = {}
+tile_date_kv = []
 unique_dates = set()
 
 for til in tile_dates_dict.keys():
@@ -21,37 +22,22 @@ for til in tile_dates_dict.keys():
         unique_dates.add(da)
 unique_dates = list(unique_dates)
 
-for date_ in unique_dates:
-    date_tile_kv[date_] = []
-    for til in tile_dates_dict.keys():
-        if date_ in tile_dates_dict[til]:
-            # date_tile_kv[date_] = int(til)
-            date_tile_kv[date_].append(int(til))
-            # date_tile_kv[date_].append(til)
 
-# give each array for each tile to same length coz F plotly
-longiest_el = 0
-for k in date_tile_kv.keys():
-    if len(date_tile_kv[k]) > longiest_el:
-        longiest_el = len(date_tile_kv[k])
+for til in tile_dates_dict.keys():
+    for da_ in tile_dates_dict[til]:
+        tile_date_kv.append([til, da_])
 
-for k in date_tile_kv.keys():
-    if len(date_tile_kv[k]) < longiest_el:
-        while len(date_tile_kv[k]) < longiest_el:
-            date_tile_kv[k].append(None)
+tile_date_kv = np.array(tile_date_kv)
+
+df = pd.DataFrame(tile_date_kv, columns=["tiles", "date"])
 # import pdb;pdb.set_trace()
-
-df = pd.DataFrame(
-    {"date": list(date_tile_kv.keys()), "tiles": list(date_tile_kv.values())}
-)
-
 # df = df.astype({"date": str, "tiles": int})
 # df = df.transpose()
-df = df.sort_values('date')
+df = df.sort_values('tiles')
 # df['date'] = pd.to_datetime(df['date'])
 
 fig = px.scatter(
-    df, x="date", y="tiles"
+    df, x="date", y="tiles", color="tiles"
     # df, x=list(date_tile_kv.keys()), y=list(date_tile_kv.values()),
 )
 # fig.update_xaxes(type='category')
