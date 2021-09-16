@@ -22,12 +22,24 @@ for til in tile_dates_dict.keys():
 unique_dates = list(unique_dates)
 
 for date_ in unique_dates:
-    # date_tile_kv[date_] = []
+    date_tile_kv[date_] = []
     for til in tile_dates_dict.keys():
         if date_ in tile_dates_dict[til]:
-            date_tile_kv[date_] = int(til)
-            # date_tile_kv[date_].append(int(til))
+            # date_tile_kv[date_] = int(til)
+            date_tile_kv[date_].append(int(til))
+            # date_tile_kv[date_].append(til)
 
+# give each array for each tile to same length coz F plotly
+longiest_el = 0
+for k in date_tile_kv.keys():
+    if len(date_tile_kv[k]) > longiest_el:
+        longiest_el = len(date_tile_kv[k])
+
+for k in date_tile_kv.keys():
+    if len(date_tile_kv[k]) < longiest_el:
+        while len(date_tile_kv[k]) < longiest_el:
+            date_tile_kv[k].append(None)
+# import pdb;pdb.set_trace()
 
 df = pd.DataFrame(
     {"date": list(date_tile_kv.keys()), "tiles": list(date_tile_kv.values())}
