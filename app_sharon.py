@@ -23,7 +23,7 @@ dates_ = [x[0].split("_")[0] for x in dates_]
 dates_ = [datetime(int(x[:4]),int(x[4:6]),int(x[6:])) for x in dates_]
 """
 fig = px.scatter(
-    df, x="20180323_B01", y="label", color="label"
+    y=df.iloc[0][5:], x=df.columns.tolist()[5:]
 )
 
 # export FLASK_ENV=development
