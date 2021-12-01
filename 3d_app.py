@@ -32,7 +32,6 @@ for band in [2,3,4,8]:
         ] = maa[str(int(row["field_id"]))]
     # df = df.merge(df_maa, on="field_id")
     # df.drop("field_id", inplace=True, axis=1)
-    import pdb;pdb.set_trace()
 
     # fig = px.scatter_3d(
     #     df, x=df["0"], y=df["tile_id"],
